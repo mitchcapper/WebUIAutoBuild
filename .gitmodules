@@ -1,0 +1,3 @@
+[submodule "upstream_webui"]
+	path = upstream_webui
+	url = https://github.com/webui-dev/webui

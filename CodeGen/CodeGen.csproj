@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="CppSharp" Version="1.1.5.3168" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="upstream\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\upstream_webui\include\webui.h" Link="upstream\webui.h">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="webui-stub.h">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+</Project>
