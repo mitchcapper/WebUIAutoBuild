@@ -7,7 +7,7 @@ using System.Windows.Threading;
 using WebUILib;
 using Windows.Win32;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
-
+using WebUILib.Extensions;
 
 namespace WPFSampleApp {
 	/// <summary>
