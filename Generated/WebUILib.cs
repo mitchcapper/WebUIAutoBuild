@@ -650,7 +650,7 @@ namespace WebUILib
 
     public unsafe partial class WebUIEvent : IDisposable
     {
-        [StructLayout(LayoutKind.Sequential, Size = 40)]
+        [StructLayout(LayoutKind.Sequential, Size = 48)]
         public partial struct __Internal
         {
             internal __IntPtr window;
@@ -658,6 +658,7 @@ namespace WebUILib
             internal __IntPtr element;
             internal ulong event_number;
             internal ulong bind_id;
+            internal ulong magic_cookie;
 
             [SuppressUnmanagedCodeSecurity, DllImport("webui-2.dll", EntryPoint = "webui_get_int_at", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern long GetIntAt(__IntPtr __instance, ulong index);
@@ -896,6 +897,19 @@ namespace WebUILib
             }
         }
 
+        public ulong MagicCookie
+        {
+            get
+            {
+                return ((__Internal*)__Instance)->magic_cookie;
+            }
+
+            set
+            {
+                ((__Internal*)__Instance)->magic_cookie = value;
+            }
+        }
+
         public long GetInt
         {
             get
@@ -939,6 +953,6 @@ namespace WebUILib
         public unsafe delegate __IntPtr Func___IntPtr_string8_intPtr([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string filename, int* length);
 
         [SuppressUnmanagedCodeSecurity, UnmanagedFunctionPointer(__CallingConvention.Cdecl)]
-        public unsafe delegate void Action_ulong_ulong_string8_ulong_ulong(ulong __0, ulong __1, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string __2, ulong __3, ulong __4);
+        public unsafe delegate void Action_ulong_ulong_string8_ulong_ulong(ulong window, ulong event_type, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string element, ulong event_number, ulong bind_id);
     }
 }

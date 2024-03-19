@@ -11,7 +11,7 @@ using System.Reflection;
 
 
 namespace CodeGen {
-	internal class WebUIGenerator : ILibrary {
+	internal class WebUIGeneratorClass : ILibrary {
 
 		public void Setup(Driver driver) {
 
@@ -78,15 +78,11 @@ namespace CodeGen {
 			var webInterfaceBind = ctx.FindFunction("webui_interface_bind").Single();
 			var webNewWindow = ctx.FindFunction("webui_new_window").Single();
 			webNewWindow.ReturnType = ptrToWebUIClass;
-			SetIsConstOnType(GetFunctionTypeFromPointerParam(webInterfaceBind.Parameters.Single(a => a.Name == "func")).Parameters[2]);
-
+			//SetIsConstOnType(GetFunctionTypeFromPointerParam(webInterfaceBind.Parameters.Single(a => a.Name == "func")).Parameters[2]);
 			webBind.Parameters.Single(a => a.Name == "func").QualifiedType = new QualifiedType(new TypedefType(ctx.FindTypedef("WebEventHandler").Single()));
-
-			//SelfGenerateConstructor(WebUIClass, webNewWindow);//could not get it to generate the constructor correctly
-
 			SetFieldTypeOnClass(WebEventClass, "window", ptrToWebUIClass);
 			SetFieldTypeOnClass(WebEventClass, "event_type", new QualifiedType(new TagType() { Declaration = evtTypeEnum }));
-			SetIsConstOnType(WebEventClass.Fields.Single(a => a.Name == "element"));
+			//SetIsConstOnType(WebEventClass.Fields.Single(a => a.Name == "element"));
 
 			ctx.SetNameOfEnumWithName("webui_events", "EventType");
 
@@ -108,29 +104,6 @@ namespace CodeGen {
 
 				}
 			}
-
-		}
-
-		private void SelfGenerateConstructor(Class webUIClass, Function webNewWindow) {
-			//Attempt to automatically add the constructor, shows up but tries to either pass an instance version to the call or with static type static accesses the instance items.  Doesn't assign to the __instance either.
-
-			Method method = new Method {
-				Namespace = webUIClass,
-				OriginalNamespace = webNewWindow.Namespace,
-				Name = ".ctor",
-				OriginalName = webNewWindow.OriginalName,
-				Mangled = webNewWindow.Mangled,
-				Access = AccessSpecifier.Public,
-				Kind = CXXMethodKind.Constructor,
-				ReturnType = webNewWindow.ReturnType,
-				CallingConvention = webNewWindow.CallingConvention,
-				IsVariadic = webNewWindow.IsVariadic,
-				IsInline = webNewWindow.IsInline,
-				//IsDefaultConstructor=true,
-				Conversion = MethodConversionKind.FunctionToStaticMethod
-			};
-			method.ReturnType = new QualifiedType(new BuiltinType(PrimitiveType.Void));
-			webUIClass.Methods.Add(method);
 
 		}
 

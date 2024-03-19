@@ -1,6 +1,6 @@
 #include "webui.h"
 
-typedef struct webui {
+typedef struct {
 
 } webui;
 

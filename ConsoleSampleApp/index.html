@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<script src="webui.js"></script>
+	<title>JS Interop</title>
+	<script>
+
+		const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+		async function SampleAsync() {
+			const startTime = performance.now();
+			await delay(1550);
+			return `Async Delayed for: ${performance.now() - startTime}ms`;
+		}
+		
+
+		async function btn2Clicked() {
+			let res = await webui.call("MyTest_function", "an", "arg", 12345.78);
+			alert("You returned: " + res);
+		}
+
+		//generate();
+	</script>
+</head>
+<body>
+	<button id="TestButton">Javascript => C# Test by bind</button>
+	<button id="TestButton2" onclick="btn2Clicked()">Javascript => C# Test by func call</button>
+</body>
+</html>
