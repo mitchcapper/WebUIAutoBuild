@@ -19,6 +19,8 @@ namespace ConsoleSampleApp {
 			window.SetSize(640, 480);
 			window.SetPosition(800, 50);
 
+			window.SetRootFolder(@".");
+
 			window.Show("index.html");
 			window.Bind("TestButton", BoundFunc);
 			window.Bind("MyTest_function", BoundFunc);

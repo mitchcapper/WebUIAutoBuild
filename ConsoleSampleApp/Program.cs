@@ -10,7 +10,7 @@ public interface IWebUISvc {
 namespace ConsoleSampleApp {
 	internal class Program {
 		async static Task Main(string[] args) {
-			var direct = args[0] == "--direct";
+			var direct = args.Length > 0 && args[0] == "--direct";
 			IWebUISvc service = direct ? new WebUITestUsingDirect() : new WebUITestUsingClass();
 			Console.WriteLine($"Using direct mode: {direct}");
 			await service.Start();

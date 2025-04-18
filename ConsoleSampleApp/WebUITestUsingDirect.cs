@@ -45,7 +45,7 @@ namespace ConsoleSampleApp {
 			var str = $"I am called: {arg1}({arg1.GetType()}) and {arg2}({arg2.GetType()}) {arg3}({arg3.GetType()})";
 			var start = DateTime.Now;
 			LogItem(str);
-			//Thread.Sleep(TimeSpan.FromSeconds(10));
+			System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
 			webui.InterfaceSetResponse(window,event_number,$"Happy Days Str: {str} took: {(int)(DateTime.Now - start).TotalSeconds}  for evt: {event_number}");
 
 		}
